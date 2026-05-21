@@ -8,8 +8,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+
+
+
+
+
+
 builder.Services.AddScoped<IDatabaseContext, SqlServer>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductionServiceCate, ProductionServiceCate>();
+
+
+
+
+
 
 
 var app = builder.Build();

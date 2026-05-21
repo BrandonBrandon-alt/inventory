@@ -1,6 +1,5 @@
 using inventory.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Data;
 
@@ -94,21 +93,7 @@ public class ProductController : ControllerBase
     }
 
 
-    [HttpPatch("UpdateProductProcedure")]
 
-    public IActionResult UpdateProduct([FromQuery] int id, [FromQuery] string name, [FromQuery] string productNumber, [FromQuery] string color, [FromQuery] int safetyStocklevel, [FromQuery] int reorderPoint, [FromQuery] decimal standardCost, [FromQuery] decimal listPrice, [FromQuery] decimal daysToManufacture, [FromQuery] DateTime sellStartDate)
-    {
-        try
-        {
-            _productService.UpdateProductProcedure(id, name, productNumber, color, safetyStocklevel, reorderPoint, standardCost, listPrice, daysToManufacture, sellStartDate);
-            string result = "Se actualizo correctamente el producto";
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Error interno: {ex.Message}");
-        }
-    }
 
     [HttpDelete("Eliminar producto")]
 
@@ -116,7 +101,7 @@ public class ProductController : ControllerBase
     {
         try
         {
-            _productService.DeleeteProductProcedure(id);
+            _productService.DeleteProductProcedure(id);
             string result = "Se selimino correctamente el producto";
             return Ok(result);
         }
@@ -129,7 +114,7 @@ public class ProductController : ControllerBase
 
 
 
-       [HttpGet("GetSellInterval")]
+    [HttpGet("GetSellInterval")]
     public IActionResult GetSellInterval([FromQuery] DateTime fechaInicio, [FromQuery] DateTime fechaFin)
     {
         try
@@ -194,84 +179,4 @@ public class ProductController : ControllerBase
 
     }
 
-    /**
-    [HttpPost("InsertCategory")]
-    public IActionResult InsertCategory([FromQuery] string name)
-    {
-        try
-        {
-            DataTable category = _productService.InsertCategory(name);
-            string result = "Se creo correctamente la categoria";
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Error interno: {ex.Message}");
-        }
-
-    }*/
-
-
-    [HttpPost("InserCategoryConsulta")]
-    public IActionResult InsertCategoryConsulta([FromQuery] string name)
-    {
-        try
-        {
-            DataTable category = _productService.InsertCategory(name);
-            string result = "Se creo correctamente la categoria";
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Error interno: {ex.Message}");
-        }
-    }
-
-    [HttpDelete("DeleteCategory")]
-    public IActionResult DeleteCategory(int id)
-    {
-        try
-        {
-            DataTable category = _productService.DeleteCategory(id);
-            string result = "Se elimino correctamente la categoria";
-            return Ok(result);
-
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Error interno: {ex.Message}");
-        }
-    }
-
-    [HttpGet("GetCategory")]
-    public IActionResult GetCategory(int id)
-    {
-        try
-        {
-            DataTable category = _productService.GetCategory(id);
-            string result = JsonConvert.SerializeObject(category);
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Error interno: {ex.Message}");
-        }
-    }
-
-    [HttpPatch("UpdateCategory")]
-    public IActionResult UpdateCategory([FromQuery] string name, [FromQuery] int id)
-    {
-        try
-        {
-            _productService.UpdateCategory(name, id);
-            string result = "Se actualizo correctamente la categoria";
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, $"Error interno: {ex.Message}");
-        }
-
-
-    }
 }
